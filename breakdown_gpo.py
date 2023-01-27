@@ -213,7 +213,7 @@ def create_summary_file(cwd, output_dir, filecontent, indexes):
     name_indx=0
     # Create summary file in the new directory.
     try:
-        with open(os.path.join(cwd, output_dir, "0_gpo_summary.txt"), encoding='utf-16-le', mode='w+') as summary_file:
+        with open(os.path.join(cwd, output_dir, "0_gpo_summary.txt"), encoding='utf-8', mode='w+') as summary_file:
             # If the GPO is unlinked, save for adding to the end of the summary file
             for indx, _ in enumerate(indexes.html_start):
                 if(indexes.link_anchor[indx]=="unlinked"):
@@ -243,14 +243,14 @@ def create_gpo_files(cwd, output_dir, filecontent, indexes):
         # Use context managers to create and populate files
         if(indexes.link_anchor[indx]=="unlinked"):
             try:
-                with open(os.path.join(cwd, output_dir,"0_unlinked_gpos",new_name+".html"), encoding='utf-16-le', mode='w+') as new_file:
+                with open(os.path.join(cwd, output_dir,"0_unlinked_gpos",new_name+".html"), encoding='utf-8', mode='w+') as new_file:
                     new_file.write(filecontent[indexes.html_start[indx]:indexes.html_end[indx]])
             except Exception as e:
                 print(Style.BRIGHT+Fore.RED+"An error ocurred writing file: "+new_name+".html\n"+str(e)+Style.RESET_ALL)
         else:
             name_index+=1
             try:
-                with open(os.path.join(cwd, output_dir,str(name_index)+"_"+new_name+".html"), encoding='utf-16-le', mode='w+') as new_file:
+                with open(os.path.join(cwd, output_dir,str(name_index)+"_"+new_name+".html"), encoding='utf-8', mode='w+') as new_file:
                     new_file.write(filecontent[indexes.html_start[indx]:indexes.html_end[indx]])
             except Exception as e:
                 print(Style.BRIGHT+Fore.RED+"An error ocurred writing file: "+new_name+".html\n"+str(e)+Style.RESET_ALL)
