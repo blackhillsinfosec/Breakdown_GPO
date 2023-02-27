@@ -120,27 +120,27 @@ def create_gpo_files(cwd, output_dir, filecontent, indexes):
         # Use context managers to create and populate files
         if(indexes.status_anchor[indx]=="disabled   "):
             try:
-                with open(os.path.join(cwd, output_dir,"disabled_gpos",new_name+".html"), encoding='utf-16-le', mode='w+') as new_file:
+                with open(os.path.join(cwd, output_dir,"disabled_gpos",new_name+".html"), encoding='utf-8', errors='ignore', mode='w+') as new_file:
                     new_file.write(filecontent[indexes.html_start[indx]:indexes.html_end[indx]])
             except Exception as e:
                 print(Style.BRIGHT+Fore.RED+"An error ocurred writing file: "+new_name+".html\n"+str(e)+Style.RESET_ALL)
         elif(indexes.effective_anchor[indx]=="ineffective"):
             try:
-                with open(os.path.join(cwd, output_dir,"ineffective_gpos",new_name+".html"), encoding='utf-16-le', mode='w+') as new_file:
+                with open(os.path.join(cwd, output_dir,"ineffective_gpos",new_name+".html"), encoding='utf-8', errors='ignore', mode='w+') as new_file:
                     new_file.write(filecontent[indexes.html_start[indx]:indexes.html_end[indx]])
             except Exception as e:
                 print(Style.BRIGHT+Fore.RED+"An error ocurred writing file: "+new_name+".html\n"+str(e)+Style.RESET_ALL)
         elif(indexes.status_anchor[indx] in ["enabled    ","user       ","computer   "]):
             name_index+=1
             try:
-                with open(os.path.join(cwd, output_dir,"enabled_gpos",str(name_index)+"_"+new_name+".html"), encoding='utf-16-le', mode='w+') as new_file:
+                with open(os.path.join(cwd, output_dir,"enabled_gpos",str(name_index)+"_"+new_name+".html"), encoding='utf-8', errors='ignore', mode='w+') as new_file:
                     new_file.write(filecontent[indexes.html_start[indx]:indexes.html_end[indx]])
             except Exception as e:
                 print(Style.BRIGHT+Fore.RED+"An error ocurred writing file: "+new_name+".html\n"+str(e)+Style.RESET_ALL)
         else:
             name_index+=1
             try:
-                with open(os.path.join(cwd, output_dir,str(name_index)+"_"+new_name+".html"), encoding='utf-16-le', mode='w+') as new_file:
+                with open(os.path.join(cwd, output_dir,str(name_index)+"_"+new_name+".html"), encoding='utf-8', errors='ignore', mode='w+') as new_file:
                     new_file.write(filecontent[indexes.html_start[indx]:indexes.html_end[indx]])
             except Exception as e:
                 print(Style.BRIGHT+Fore.RED+"An error ocurred writing file: "+new_name+".html\n"+str(e)+Style.RESET_ALL)
