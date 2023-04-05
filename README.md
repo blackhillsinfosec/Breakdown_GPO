@@ -1,6 +1,6 @@
 # breakdown_gpo
 
-#### Version 2.0.1
+#### Version 2.0.w
 `
 During Active Directory Reviews, it is beneficial to review all of the GPOs.
 On a domain controller, the command `Get-GPOReport -All -Domain "domain.com" -Server "ACME-DC1" -ReportType HTML -Path "C:\GPOReport.html"` will export all of the GPOs for `domain.com`. However, it will combine all of the HTML reports into a single file; having several HTML files inside a single file causes problems and cannot be read easily with a browser. This tool breaks down the large file into a collection of individual HTML files that can be opened in a browser.
@@ -29,6 +29,11 @@ Determine if the GPO is "Enabled", "Disabled", "Computer", "User", or "Ineffecti
 ##### 2.0.1
 ###### UTF-16-LE File Encoding Broke HTML
 Converted outputted file encoding to UTF-8, which does not break HTML rendering.
+
+##### 2.0.2
+###### Enabled Improvements
+The logic originally associated with the Enabled logic was too specific to allow for different GPO versions.
+New logic for "fuzzy" comparison.
 
 #### Syntax
 

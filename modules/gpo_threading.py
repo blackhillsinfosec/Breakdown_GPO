@@ -1,5 +1,5 @@
 from colorama import Fore, Style
-import threading, sys, time, modules.gpo_indexes as gpo_indexes
+import threading, sys, time, re, modules.gpo_indexes as gpo_indexes
 
 # Class for threads to index file
 class indx_thread(threading.Thread):
@@ -45,9 +45,9 @@ class indx_thread(threading.Thread):
                 elif(self.read_material[(self.read_start+indx):(self.read_start+indx)+35]=="<tr><td scope=\"row\">GPO Status</td>"):
                     self.status_anchor.append((self.read_start+indx))
                 # Determine if the GPO is ineffective
-                elif(self.read_material[(self.read_start+indx):(self.read_start+indx)+235]=="<b>The settings in this GPO can only apply to the following groups, users, and computers:</b></div>\n<div class=\"he4i\">\n<table class=\"info\" cellpadding=\"0\" cellspacing=\"0\"><tr><th scope=\"col\">Name</th></tr><tr><td>None</td></tr></table>"):
+                elif(("<b>The settings in this GPO can only apply to the following groups, users, and computers:</b>") in self.read_material[(self.read_start+indx):(self.read_start+indx)+93] and ("<tr><td>None</td></tr>" in self.read_material[(self.read_start+indx):(self.read_start+indx)+250])):
                     self.effective_anchor.append("ineffective")
-                elif(self.read_material[(self.read_start+indx):(self.read_start+indx)+213]=="<b>The settings in this GPO can only apply to the following groups, users, and computers:</b></div>\n<div class=\"he4i\">\n<table class=\"info\" cellpadding=\"0\" cellspacing=\"0\"><tr><th scope=\"col\">Name</th></tr><tr><td>"):
+                elif(("<b>The settings in this GPO can only apply to the following groups, users, and computers:</b>") in self.read_material[(self.read_start+indx):(self.read_start+indx)+93]):
                     self.effective_anchor.append((self.read_start+indx))
                 # Search for closing HTML tags of interest.
                 elif(self.read_material[(self.read_start+indx):(self.read_start+indx)+7]=="</html>" and self.read_material[(self.read_start+indx):(self.read_start+indx)+8]!="</html>\""):

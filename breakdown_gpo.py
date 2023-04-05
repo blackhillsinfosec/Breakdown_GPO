@@ -10,6 +10,7 @@ def main():
         start = time.time()
         filecontent=gpo_files.initialize_filecontent()
         Indexes = gpo_threading.concurrent_index_file(filecontent)
+        Indexes.print_index_counts()
         validate=Indexes.validate_indexes()
         gpo_threading.review_validation(validate, start)
         output_dir=gpo_files.create_output_dirs(cwd)
