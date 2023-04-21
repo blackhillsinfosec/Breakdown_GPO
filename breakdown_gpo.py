@@ -1,31 +1,27 @@
 #! /bin/python3
-# Version 2.0.0
-import time, sys, os, time, modules.gpo_files as gpo_files, modules.gpo_threading as gpo_threading
-from colorama import Fore, Style
+# Version 3.0.0
+
+import sys, time, shutil, os
+from modules.breakdown import breakdown
+from modules.arguments import parse
+from modules.help import help
 
 def main():
-    cwd=os.getcwd()
-    # Memory-related processes. Keyboard Interupt shouldn't be a problem.
     try:
-        start = time.time()
-        filecontent=gpo_files.initialize_filecontent()
-        Indexes = gpo_threading.concurrent_index_file(filecontent)
-        Indexes.print_index_counts()
-        validate=Indexes.validate_indexes()
-        gpo_threading.review_validation(validate, start)
-        output_dir=gpo_files.create_output_dirs(cwd)
-        
-    # Cleanly exit the program if interupt is found.
+        if len(sys.argv)==1 or "--help" in sys.argv or "-h" in sys.argv:
+            help()
+        else:
+            input_path, output_path = parse(sys.argv[1:])
     except KeyboardInterrupt:
-        print("\r\n", end="")
-        sys.exit()
+        pass
     try:
-        gpo_files.create_summary_file(cwd, output_dir, filecontent, Indexes)
-        gpo_files.create_gpo_files(cwd, output_dir, filecontent, Indexes)
-        print(Style.BRIGHT+Fore.GREEN+"Export complete."+Style.RESET_ALL)
+        start_time = time.time()
+        breakdown(input_path, output_path)
+        print(f"Breakdown took {time.time() - start_time :.2f} seconds.")
     except KeyboardInterrupt:
-        print("\rExport was interupted. The files are corrupt and not complete.")
-        sys.exit
+        if(os.path.exists(output_path)):
+            print("Interupt detected.")
+            shutil.rmtree(output_path)
 
 if __name__=='__main__':
     main()

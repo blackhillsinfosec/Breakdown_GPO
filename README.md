@@ -1,44 +1,41 @@
-# breakdown_gpo
+# Breakdown GPO
 
-#### Version 2.0.w
-`
+#### Version 3.0.0
+
 During Active Directory Reviews, it is beneficial to review all of the GPOs.
-On a domain controller, the command `Get-GPOReport -All -Domain "domain.com" -Server "ACME-DC1" -ReportType HTML -Path "C:\GPOReport.html"` will export all of the GPOs for `domain.com`. However, it will combine all of the HTML reports into a single file; having several HTML files inside a single file causes problems and cannot be read easily with a browser. This tool breaks down the large file into a collection of individual HTML files that can be opened in a browser.
+On a domain controller, the command `Get-GPOReport -All -Domain "domain.com" -Server "ACME-DC1" -ReportType HTML -Path "C:\GPOReport.html"` will export all of the GPOs for `domain.com`. All the individual HTML reports will be combined into a single file; having several HTML files inside a single file causes problems, and cannot be read easily, with a browser. Breakdown GPO separates the individual GPOs into individual HTML files that can be opened in a browser.
 
-By default, this script will create an output directory ("gpo_out") in the current working directory.
-The script will ask if the output directory needs to be a different name; leave blank for default.
+A summary of the broken down GPOs will be created.
 
-A summary of the broken down GPOs will be created inside the new output directory called "gpo_summary.txt".
-GPOs will be organized according to their status: "effective", "computer", "user", "disabled", or "ineffective".
-GPOs are considered "ineffective" if they have a security filter of "none".
+GPOs will be organized according to their status:
+- "Enabled" indicates that both computer and user settings are enabled.
+- "Computer" indicates that user settings are disabled and computer settings are enabled.
+- "User" indicates that computer settings are disabled and user settings are enabled.
+- "Disabled" incicates that computer and user settings are enabled.
+- GPOs are "ineffective" if they have a security filter of "None" and are enabled ("enabled", "computer", or "user").
 
-GPOs that are effective ("effective", "computer", "user") will be prepended with a number to preserve the order they are listed in the original GPOReport.
+GPOs are prepended with a number to preserve the order they are listed in the original GPOReport.
 Using this ordering, it should be possible to calculate winning GPOs.
 
-#### Pre-Reqs
-`python3 -m pip install colorama`
-
 #### Version Notes
-##### 2.0.0
+##### 3.0.0
 ###### Major Refactor
-Separated major code aspects into modules.
+The entire project was rewritten to implement Generators and Comprehensions.
+The introduction of these elements:
+- simplies the code
+- reduces memory consumption - although this is likely negligible for most GPOReports
+- eliminates threading 
+In initial tests, this had no major impact to performance.
 
-###### Distinguish each GPO by status
-Determine if the GPO is "Enabled", "Disabled", "Computer", "User", or "Ineffective".
+#### Usage
 
-##### 2.0.1
-###### UTF-16-LE File Encoding Broke HTML
-Converted outputted file encoding to UTF-8, which does not break HTML rendering.
+Breakdown GPO
 
-##### 2.0.2
-###### Enabled Improvements
-The logic originally associated with the Enabled logic was too specific to allow for different GPO versions.
-New logic for "fuzzy" comparison.
+        Usage: python3 .\breakdown_gpo.py -i <input> -o <output>
 
-#### Syntax
+        Options:
 
-###### Specify the GPOReport location on the command_line
-`./breakdown_gpo.py ./GPOReport.html`
-
-###### Specify the GPOReport location after execution
-`./breakdown_gpo.py`
+        --input, -i, --in               Define the GPOReport to be broken down.
+        --output, -o, --out             Define the output directory.
+        --default_output, -do, --do     Use the current working directory as the output directory.
+        --help, -h                      Print this help menu.
