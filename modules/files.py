@@ -1,6 +1,7 @@
 import os
 
-def write_individual_files(start_list, names, gpo_statuses, ineffective, file_path, output_dir):
+def write_individual_files(indices, file_path, output_dir):
+    start_list, _, gpo_statuses, names, ineffective = indices.return_indices()
     iteration=-1
     os.mkdir(output_dir)
     try:

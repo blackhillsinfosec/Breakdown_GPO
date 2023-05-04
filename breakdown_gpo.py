@@ -13,7 +13,9 @@ def main():
         else:
             input_path, output_path = parse(sys.argv[1:])
     except KeyboardInterrupt:
-        pass
+        quit()
+    except Exception as e:
+        print(e)
     try:
         start_time = time.time()
         breakdown(input_path, output_path)
@@ -22,6 +24,8 @@ def main():
         if(os.path.exists(output_path)):
             print("Interupt detected.")
             shutil.rmtree(output_path)
+    except Exception as e:
+        print(e)
 
 if __name__=='__main__':
     main()
