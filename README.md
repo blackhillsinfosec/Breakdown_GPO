@@ -32,7 +32,14 @@ Breakdown GPO
 ```  
   
 ## Version Notes
-  
+
+### 3.0.2
+#### Introduce Handles Class
+Class to maintain file handles.
+Makes the code easier to read (kind of).
+Provides a count of each type of GPO detected.
+Cause why not?
+
 ### 3.0.1
 #### Introduce Indices Class
 The Indices class packages all the attribute lists into a single object.
