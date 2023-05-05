@@ -28,16 +28,16 @@ def find_attributes(file_path):
                 yield ''.join(x for x in line[7:-9] if x.isalnum() or x==" " or x=="-" or x=="_")
             # 3a
             elif ("<tr><td scope=\"row\">GPO Status</td><td>Enabled</td></tr>" in clean_line):
-                yield "enabled"
+                yield "Enabled"
             # 3b
             elif ("<tr><td scope=\"row\">GPO Status</td><td>All settings disabled</td></tr>" in clean_line):
-                yield "disabled"
+                yield "Disabled"
             # 3c
             elif ("<tr><td scope=\"row\">GPO Status</td><td>User settings disabled</td></tr>" in clean_line):
-                yield "computer"
+                yield "Computer"
             # 3d
             elif ("<tr><td scope=\"row\">GPO Status</td><td>Computer settings disabled</td></tr>" in clean_line):
-                yield "user"
+                yield "User"
             # 4a
             elif ("<b>The settings in this GPO can only apply to the following groups, users, and computers:</b>" in clean_line):
                 ineffective_anchor=indx

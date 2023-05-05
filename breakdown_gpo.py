@@ -7,15 +7,18 @@ from modules.arguments import parse
 from modules.help import help
 
 def main():
+    # Pre-Breakdown Logic
     try:
         if len(sys.argv)==1 or "--help" in sys.argv or "-h" in sys.argv:
             help()
         else:
             input_path, output_path = parse(sys.argv[1:])
     except KeyboardInterrupt:
+        print()
         quit()
     except Exception as e:
         print(e)
+    # Breakdown Logic
     try:
         start_time = time.time()
         breakdown(input_path, output_path)
