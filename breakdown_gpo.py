@@ -1,5 +1,5 @@
 #! /bin/python3
-# Version 3.0.0
+# Version 3.0.2
 
 import sys, time, shutil, os
 from modules.breakdown import breakdown

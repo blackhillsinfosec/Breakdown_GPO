@@ -35,10 +35,10 @@ Breakdown GPO
 
 ### 3.0.2
 #### Introduce Handles Class
-Class to maintain file handles.
-Makes the code easier to read (kind of).
-Provides a count of each type of GPO detected.
-Cause why not?
+Class to maintain file handles.  
+Makes the code easier to read (kind of).  
+Provides a count of each type of GPO detected.  
+Cause why not?  
 
 ### 3.0.1
 #### Introduce Indices Class
