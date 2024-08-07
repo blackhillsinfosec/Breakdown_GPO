@@ -1,3 +1,6 @@
+>[!NOTE]
+>This tool has been superceded by [GPO Insight](https://github.com/blackhillsinfosec/gpo-insight).
+
 ### Version 3.0.2
 
 ## Description
